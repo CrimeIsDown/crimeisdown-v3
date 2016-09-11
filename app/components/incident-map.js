@@ -33,30 +33,39 @@ export default Ember.Component.extend({
 
   initBaseLayers() {
     this.get('baseLayers')["OpenStreetMap"] = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      maxNativeZoom: 19,
+      minZoom: 0,
+      maxZoom: 20
     }).addTo(this.get('map'));
 
     this.get('baseLayers')["MapBox Streets"] = L.tileLayer('https://api.mapbox.com/styles/v1/erictendian/ciqn6pmjh0005bini99og1s6q/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXJpY3RlbmRpYW4iLCJhIjoiY2lvaXpvcDRnMDBkNHU1bTFvb2R1NjZjYiJ9.3vYfk1y5-F5MVQDdgaXwpA', {
-      attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      minZoom: 0,
+      maxZoom: 20
     });
 
-    this.get('baseLayers')["Google Hybrid"] = new L.Google('HYBRID');
+    this.get('baseLayers')["Google Hybrid"] = new L.Google('HYBRID', {
+      minZoom: 0,
+      maxZoom: 20
+    });
   },
 
   initGeocoder() {
     let handleGeocodeResult = (e) => {
+      console.log(e);
       this.get('map').fitBounds(e.geocode.bbox);
-      if (e.geocode.properties[3].long_name == 'Chicago') {
+      if (e.geocode.name.indexOf('Chicago, IL')!==-1) {
         this.set('location', this.get('addressLookup').generateLocationDataForAddress(this.get('layers'), e));
       } else {
-        this.set('location', {meta: {formattedAddress: 'INVALID ADDRESS'}});
+        this.set('location', {meta: {formattedAddress: 'ADDRESS OUT OF BOUNDS'}});
       }
     };
 
     handleGeocodeResult = handleGeocodeResult.bind(this);
 
     this.set('geocoder', L.Control.geocoder({
-        geocoder: L.Control.Geocoder.google('AIzaSyDKf0etDDpk0jStsehtRX3TSQaK8pU98mY', {
+        geocoder: L.Control.Geocoder.google('AIzaSyDrvC1g6VOozblroTwleGRz9SJDN82F_gE', {
           geocodingQueryParams: {
             bounds: '41.60218817897012,-87.37011785993366|42.05134582102988,-87.9728821400663'
           }
