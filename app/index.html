@@ -35,14 +35,6 @@
     {{content-for "body"}}
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrvC1g6VOozblroTwleGRz9SJDN82F_gE"></script>
-
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script>
-      Raven
-        .config('https://fc1365bf53c34718b4674383752e1080@sentry.io/154438')
-        .addPlugin(Raven.Plugins.Ember)
-        .install();
-    </script>
     <script type="text/javascript">
       window.doorbellOptions = {
         appKey: 'tJuSPqYkG0BJ1Ew8JBLe1t5yksnpI5kvBIo2Gq23UaO1QsAUs8i9sbqvNl1BvCI5'
@@ -53,6 +45,13 @@
         if (w.attachEvent) { w.attachEvent('onload', l); } else if (w.addEventListener) { w.addEventListener('load', l, false); } else { l(); }
         if (d.readyState == 'complete') { l(); }
       }(window, document, 'script'));
+    </script>
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script>
+      Raven
+        .config('https://fc1365bf53c34718b4674383752e1080@sentry.io/154438')
+        .addPlugin(Raven.Plugins.Ember)
+        .install();
     </script>
     <script src="{{rootURL}}assets/crimeisdown.js"></script>
 
