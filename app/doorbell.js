@@ -1,5 +1,6 @@
 window.doorbellOptions = {
-  appKey: 'tJuSPqYkG0BJ1Ew8JBLe1t5yksnpI5kvBIo2Gq23UaO1QsAUs8i9sbqvNl1BvCI5'
+  appKey: 'tJuSPqYkG0BJ1Ew8JBLe1t5yksnpI5kvBIo2Gq23UaO1QsAUs8i9sbqvNl1BvCI5',
+  hideButton: true
 };
 (function(w, d, t) {
   var hasLoaded = false;
