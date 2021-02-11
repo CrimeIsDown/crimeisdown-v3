@@ -1,7 +1,6 @@
 # unconventional js
 /blueprints/*/files/
 /vendor/
-/public/assets/
 
 # compiled output
 /dist/
@@ -20,6 +19,3 @@
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
-
-# tests
-/tests
