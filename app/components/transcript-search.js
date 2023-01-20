@@ -18,9 +18,12 @@ import { defaultTemplates as statsTemplates } from 'instantsearch.js/es/widgets/
 import { history } from 'instantsearch.js/es/lib/routers';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import connectRange from 'instantsearch.js/es/connectors/range/connectRange';
+import { service } from '@ember/service';
 
 export default class TranscriptSearchComponent extends Component {
-  @tracked isLoggedIn = undefined;
+  @service session;
+
+  @tracked hasAccess = undefined;
   @tracked apiKey = undefined;
   @tracked indexName = 'calls';
   @tracked hits = [];
@@ -78,7 +81,7 @@ export default class TranscriptSearchComponent extends Component {
       let apiKey = localStorage.getItem('search-key');
       if (apiKey) {
         this.apiKey = apiKey;
-        this.isLoggedIn = true;
+        this.hasAccess = true;
         return;
       }
     } catch (e) {
@@ -92,10 +95,10 @@ export default class TranscriptSearchComponent extends Component {
         }
       );
       this.apiKey = await response.text();
-      this.isLoggedIn = true;
+      this.hasAccess = true;
     } catch (e) {
       console.error(e);
-      this.isLoggedIn = false;
+      this.hasAccess = false;
       this.apiKey =
         '1a2c3a6df6f35d50d14e258133e34711f4465ecc146bb4ceed61466e231ee698';
       this.indexName = 'calls_demo';
