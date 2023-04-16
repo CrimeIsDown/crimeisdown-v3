@@ -294,7 +294,7 @@ export default class IncidentMap extends Component {
   }
 
   initGeocoder() {
-    this.geosearchProvider = new GeoSearch.GoogleProvider({
+    this.geosearchProvider = new GeoSearch.LegacyGoogleProvider({
       params: {
         key: 'AIzaSyDrvC1g6VOozblroTwleGRz9SJDN82F_gE',
         bounds:
