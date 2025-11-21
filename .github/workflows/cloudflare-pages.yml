@@ -3,11 +3,9 @@ name: Deploy to Cloudflare Pages
 on:
   push:
     branches:
-      - main
       - master
   pull_request:
     branches:
-      - main
       - master
   workflow_dispatch: {}
 
@@ -23,7 +21,7 @@ jobs:
       contents: read
       deployments: write
     environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+      name: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     env:
       NODE_VERSION: 20
